@@ -1,7 +1,7 @@
 import React from "react";
 
 const Form = (props) => {
-  const { change, submit } = props;
+  const { change, submit, errors } = props;
   const { username, email, password, tos } = props.values;
 
   const onChange = (e) => {
@@ -18,6 +18,13 @@ const Form = (props) => {
   return (
     <div>
       <h1>User Onboarding Form</h1>
+      <p>
+        {errors.username}
+        {errors.email}
+        {errors.password}
+        {errors.tos}
+      </p>
+
       <form onSubmit={onSubmit}>
         <label>
           Username:

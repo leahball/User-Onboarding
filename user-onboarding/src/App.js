@@ -22,7 +22,7 @@ const initialUser = [];
 // const initialDisabled = true;
 
 function App() {
-  // const [user, setUser] = useState(initialUser);
+  const [users, setUsers] = useState([]);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   // const [disabled, setDisabled] = useState(initialDisabled);
@@ -35,9 +35,15 @@ function App() {
   //   //post users to state
   // };
 
-  // const handleSubmit = () => {
-  //   //wip
-  // };
+  const handleSubmit = () => {
+    axios
+      .post("http://reqres.in/api/users", formValues)
+      .then((res) => {
+        setUsers([res.data, ...users]);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setFormValues(initialFormValues));
+  };
   const handleChange = (name, value) => {
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
@@ -53,7 +59,18 @@ function App() {
 
   return (
     <div className="App">
-      <Form values={formValues} />
+      <Form
+        values={formValues}
+        change={handleChange}
+        errors={formErrors}
+        submit={handleSubmit}
+      />
+      {users.map((user) => (
+        <div key={user.id}>
+          <p>{user.username}</p>
+          <p>{user.email}</p>
+        </div>
+      ))}
     </div>
   );
 }
