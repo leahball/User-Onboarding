@@ -2,7 +2,7 @@ import React from "react";
 
 const Form = (props) => {
   const { change, submit } = props;
-  const { username, email, password, checked } = props.values;
+  const { username, email, password, tos } = props.values;
 
   const onChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -43,12 +43,7 @@ const Form = (props) => {
         </label>
         <label>
           Terms of Service:
-          <input
-            type="checkbox"
-            name="tos"
-            checked={checked}
-            onChange={onChange}
-          />
+          <input type="checkbox" name="tos" checked={tos} onChange={onChange} />
         </label>
         <input type="submit" value="create new user" />
       </form>
